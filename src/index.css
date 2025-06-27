@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200 dark:border-dark-border;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-dark-background dark:text-dark-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 dark:bg-dark-primary dark:text-dark-primary-foreground dark:hover:bg-primary-600;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-secondary-100 text-secondary-900 hover:bg-secondary-200 active:bg-secondary-300 dark:bg-dark-secondary dark:text-dark-secondary-foreground dark:hover:bg-secondary-700;
+  }
+  
+  .btn-outline {
+    @apply btn border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 active:bg-gray-100 dark:border-dark-border dark:bg-dark-background dark:text-dark-foreground dark:hover:bg-dark-accent;
+  }
+  
+  .card {
+    @apply rounded-lg border bg-white p-6 shadow-sm dark:border-dark-border dark:bg-dark-card dark:text-dark-card-foreground;
+  }
+  
+  .input {
+    @apply flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-dark-input dark:bg-dark-input dark:text-dark-foreground dark:placeholder:text-dark-muted-foreground dark:focus-visible:ring-dark-ring dark:focus-visible:ring-offset-dark-background;
+  }
+  
+  .textarea {
+    @apply flex min-h-[80px] w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-dark-input dark:bg-dark-input dark:text-dark-foreground dark:placeholder:text-dark-muted-foreground dark:focus-visible:ring-dark-ring dark:focus-visible:ring-offset-dark-background;
+  }
+
+  .recipe-card {
+    @apply card hover:shadow-md transition-shadow cursor-pointer;
+  }
+
+  .loading-spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 dark:border-dark-primary;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+}
+
+/* 自定義滾動條 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 深色模式下的滾動條 */
+.dark::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+.dark::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+}
+
+.dark::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
