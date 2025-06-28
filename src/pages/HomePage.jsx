@@ -78,24 +78,24 @@ const HomePage = () => {
     <div className="space-y-8">
       {/* 歡迎標題 */}
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-dark-foreground mb-4">
+        <h1 className="mb-4 text-4xl font-bold text-gray-900 dark:text-dark-foreground">
           歡迎使用 AI 食譜創作大師 🍳
         </h1>
-        <p className="text-xl text-gray-600 dark:text-dark-muted-foreground max-w-2xl mx-auto">
+        <p className="max-w-2xl mx-auto text-xl text-gray-600 dark:text-dark-muted-foreground">
           只需輸入您的食材或料理想法，AI 將為您量身打造完美的食譜
         </p>
       </div>
 
       {/* AI 配置提醒 */}
       {!isAIConfigured() && (
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4">
+        <div className="p-4 border border-yellow-200 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-700">
           <div className="flex items-center">
-            <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mr-2" />
+            <AlertCircle className="w-5 h-5 mr-2 text-yellow-600 dark:text-yellow-400" />
             <p className="text-yellow-800 dark:text-yellow-200">
               請先到{' '}
               <button
                 onClick={() => navigate('/settings')}
-                className="font-medium text-yellow-900 dark:text-yellow-300 underline hover:no-underline"
+                className="font-medium text-yellow-900 underline dark:text-yellow-300 hover:no-underline"
               >
                 設定頁面
               </button>
@@ -106,7 +106,7 @@ const HomePage = () => {
       )}
 
       {/* 主要輸入區域 */}
-      <div className="bg-white dark:bg-dark-card rounded-lg shadow-sm border border-gray-200 dark:border-dark-border p-6">
+      <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-dark-card dark:border-dark-border">
         <div className="space-y-4">
           <label className="block text-sm font-medium text-gray-700 dark:text-dark-foreground">
             告訴我您想要什麼樣的料理：
@@ -122,7 +122,7 @@ const HomePage = () => {
             />
             
             {/* 字數統計 */}
-            <div className="absolute bottom-2 right-2 text-xs text-gray-400 dark:text-dark-muted-foreground">
+            <div className="absolute text-xs text-gray-400 bottom-2 right-2 dark:text-dark-muted-foreground">
               {input.length}/500
             </div>
           </div>
@@ -132,16 +132,16 @@ const HomePage = () => {
             <button
               onClick={handleGenerateRecipe}
               disabled={isGenerating || !input.trim() || !isAIConfigured()}
-              className="btn-primary dark:bg-dark-primary dark:hover:bg-primary-600 px-8 py-3 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-8 py-3 text-lg btn-primary dark:bg-dark-primary dark:hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isGenerating ? (
                 <>
-                  <Loader2 className="animate-spin h-5 w-5 mr-2 dark:text-dark-primary-foreground" />
+                  <Loader2 className="w-5 h-5 mr-2 animate-spin dark:text-dark-primary-foreground" />
                   正在生成食譜...
                 </>
               ) : (
                 <>
-                  <Sparkles className="h-5 w-5 mr-2 dark:text-dark-primary-foreground" />
+                  <Sparkles className="w-5 h-5 mr-2 dark:text-dark-primary-foreground" />
                   生成食譜
                 </>
               )}
@@ -151,14 +151,14 @@ const HomePage = () => {
       </div>
 
       {/* 示例輸入建議 */}
-      <div className="bg-gray-50 dark:bg-dark-card rounded-lg p-6">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-dark-foreground mb-4">💡 試試這些例子：</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="p-6 rounded-lg bg-gray-50 dark:bg-dark-card">
+        <h3 className="mb-4 text-lg font-medium text-gray-900 dark:text-dark-foreground">💡 試試這些例子：</h3>
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
           {exampleInputs.map((example, index) => (
             <button
               key={index}
               onClick={() => setInput(example)}
-              className="text-left p-3 bg-white dark:bg-dark-input rounded-md border border-gray-200 dark:border-dark-border hover:border-primary-300 dark:hover:border-dark-primary hover:bg-primary-50 dark:hover:bg-dark-accent transition-colors text-sm dark:text-dark-foreground"
+              className="p-3 text-sm text-left transition-colors bg-white border border-gray-200 rounded-md dark:bg-dark-input dark:border-dark-border hover:border-primary-300 dark:hover:border-dark-primary hover:bg-primary-50 dark:hover:bg-dark-accent dark:text-dark-foreground"
               disabled={isGenerating}
             >
               {example}
@@ -169,36 +169,37 @@ const HomePage = () => {
 
       {/* 最近生成的食譜預覽 */}
       {lastGeneratedRecipe && (
-        <div className="bg-white dark:bg-dark-card rounded-lg shadow-sm border border-gray-200 dark:border-dark-border p-6">
+        <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-dark-card dark:border-dark-border">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-medium text-gray-900 dark:text-dark-foreground">🎉 最新生成的食譜</h3>
-            <button
-              onClick={viewRecipeDetail}
-              className="btn-primary dark:bg-dark-primary dark:hover:bg-primary-600 text-sm"
-            >
-              查看完整食譜
-            </button>
+          <button
+            onClick={viewRecipeDetail}
+            className="btn-primary inline-flex items-center px-5 py-2.5 text-base font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out transform hover:-translate-y-0.5"
+          >
+            <BookOpen className="w-5 h-5 mr-2" />
+            查看完整食譜
+          </button>
           </div>
           
-          <div className="border-l-4 border-primary-500 dark:border-dark-primary pl-4">
-            <h4 className="font-medium text-gray-900 dark:text-dark-foreground mb-2">
+          <div className="pl-4 border-l-4 border-primary-500 dark:border-dark-primary">
+            <h4 className="mb-2 font-medium text-gray-900 dark:text-dark-foreground">
               {lastGeneratedRecipe.title}
             </h4>
-            <p className="text-gray-600 dark:text-dark-muted-foreground text-sm mb-3">
+            <p className="mb-3 text-sm text-gray-600 dark:text-dark-muted-foreground">
               {lastGeneratedRecipe.description}
             </p>
             
             <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-dark-muted-foreground">
               <div className="flex items-center">
-                <Clock className="h-4 w-4 mr-1" />
+                <Clock className="w-4 h-4 mr-1" />
                 {lastGeneratedRecipe.cookingTime}
               </div>
               <div className="flex items-center">
-                <Users className="h-4 w-4 mr-1" />
+                <Users className="w-4 h-4 mr-1" />
                 {lastGeneratedRecipe.servings} 人份
               </div>
               <div className="flex items-center">
-                <ChefHat className="h-4 w-4 mr-1" />
+                <ChefHat className="w-4 h-4 mr-1" />
                 {lastGeneratedRecipe.difficulty}
               </div>
             </div>
@@ -207,32 +208,32 @@ const HomePage = () => {
       )}
 
       {/* 功能特色介紹 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="text-center p-6 bg-white dark:bg-dark-card rounded-lg shadow-sm border border-gray-200 dark:border-dark-border">
-          <div className="w-12 h-12 bg-primary-100 dark:bg-dark-accent rounded-lg flex items-center justify-center mx-auto mb-4">
-            <Sparkles className="h-6 w-6 text-primary-600 dark:text-dark-primary" />
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="p-6 text-center bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-dark-card dark:border-dark-border">
+          <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-lg bg-primary-100 dark:bg-dark-accent">
+            <Sparkles className="w-6 h-6 text-primary-600 dark:text-dark-primary" />
           </div>
-          <h3 className="font-medium text-gray-900 dark:text-dark-foreground mb-2">智能生成</h3>
+          <h3 className="mb-2 font-medium text-gray-900 dark:text-dark-foreground">智能生成</h3>
           <p className="text-sm text-gray-600 dark:text-dark-muted-foreground">
             輸入任何食材或概念，AI 立即為您創作專屬食譜
           </p>
         </div>
 
-        <div className="text-center p-6 bg-white dark:bg-dark-card rounded-lg shadow-sm border border-gray-200 dark:border-dark-border">
-          <div className="w-12 h-12 bg-secondary-100 dark:bg-dark-secondary rounded-lg flex items-center justify-center mx-auto mb-4">
-            <BookOpen className="h-6 w-6 text-secondary-600 dark:text-dark-secondary-foreground" />
+        <div className="p-6 text-center bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-dark-card dark:border-dark-border">
+          <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-lg bg-secondary-100 dark:bg-dark-secondary">
+            <BookOpen className="w-6 h-6 text-secondary-600 dark:text-dark-secondary-foreground" />
           </div>
-          <h3 className="font-medium text-gray-900 dark:text-dark-foreground mb-2">本地儲存</h3>
+          <h3 className="mb-2 font-medium text-gray-900 dark:text-dark-foreground">本地儲存</h3>
           <p className="text-sm text-gray-600 dark:text-dark-muted-foreground">
             所有食譜安全存儲在您的瀏覽器中，隱私有保障
           </p>
         </div>
 
-        <div className="text-center p-6 bg-white dark:bg-dark-card rounded-lg shadow-sm border border-gray-200 dark:border-dark-border">
-          <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-            <ChefHat className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
+        <div className="p-6 text-center bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-dark-card dark:border-dark-border">
+          <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-yellow-100 rounded-lg dark:bg-yellow-900/20">
+            <ChefHat className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
           </div>
-          <h3 className="font-medium text-gray-900 dark:text-dark-foreground mb-2">專業品質</h3>
+          <h3 className="mb-2 font-medium text-gray-900 dark:text-dark-foreground">專業品質</h3>
           <p className="text-sm text-gray-600 dark:text-dark-muted-foreground">
             詳細的步驟說明和營養建議，如同專業廚師指導
           </p>

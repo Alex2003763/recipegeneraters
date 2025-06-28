@@ -10,7 +10,8 @@ import {
   Share2,
   Heart,
   CheckCircle2,
-  Circle
+  Circle,
+  Star
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { recipeService } from '../utils/database';
@@ -108,8 +109,8 @@ const RecipeDetailPage = () => {
 
   if (error || !recipe) {
     return (
-      <div className="text-center py-12">
-        <div className="text-red-600 mb-4">{error || '食譜不存在'}</div>
+      <div className="py-12 text-center">
+        <div className="mb-4 text-red-600">{error || '食譜不存在'}</div>
         <Link to="/recipes" className="btn-primary">
           返回食譜列表
         </Link>
@@ -127,39 +128,39 @@ const RecipeDetailPage = () => {
       <div className="mb-6">
         <Link
           to="/recipes"
-          className="px-4 py-2 rounded-md border border-gray-300 dark:border-dark-border text-gray-700 dark:text-dark-foreground hover:bg-gray-100 dark:hover:bg-dark-accent transition-colors inline-flex items-center shadow-sm"
+          className="inline-flex items-center px-4 py-2 text-gray-700 transition-colors border border-gray-300 rounded-md shadow-sm dark:border-dark-border dark:text-dark-foreground hover:bg-gray-100 dark:hover:bg-dark-accent"
         >
-          <ArrowLeft className="h-4 w-4 mr-2" />
+          <ArrowLeft className="w-4 h-4 mr-2" />
           返回食譜列表
         </Link>
       </div>
 
       {/* 食譜標題和操作 */}
-      <div className="bg-white dark:bg-dark-card rounded-lg shadow-sm border border-gray-200 dark:border-dark-border p-6 mb-6">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4">
+      <div className="p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-dark-card dark:border-dark-border">
+        <div className="flex flex-col items-start justify-between mb-4 lg:flex-row lg:items-center">
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-dark-foreground mb-2">
+            <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-dark-foreground">
               {recipe.title}
             </h1>
-            <p className="text-gray-600 dark:text-dark-muted-foreground text-lg">
+            <p className="text-lg text-gray-600 dark:text-dark-muted-foreground">
               {recipe.description}
             </p>
           </div>
           
-          <div className="flex items-center space-x-2 mt-4 lg:mt-0">
+          <div className="flex items-center mt-4 space-x-2 lg:mt-0">
             <button
               onClick={handleShareRecipe}
-              className="p-2 rounded-md text-gray-600 dark:text-dark-muted-foreground hover:bg-gray-100 dark:hover:bg-dark-accent transition-colors"
+              className="p-2 text-gray-600 transition-colors rounded-md dark:text-dark-muted-foreground hover:bg-gray-100 dark:hover:bg-dark-accent"
               title="分享食譜"
             >
-              <Share2 className="h-4 w-4" />
+              <Share2 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setShowDeleteConfirm(true)}
-              className="p-2 rounded-md text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-700 dark:hover:text-red-400 transition-colors"
+              className="p-2 text-red-600 transition-colors rounded-md dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-700 dark:hover:text-red-400"
               title="刪除食譜"
             >
-              <Trash2 className="h-4 w-4" />
+              <Trash2 className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -167,15 +168,15 @@ const RecipeDetailPage = () => {
         {/* 食譜資訊 */}
         <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600 dark:text-dark-muted-foreground">
           <div className="flex items-center">
-            <Clock className="h-4 w-4 mr-2" />
+            <Clock className="w-4 h-4 mr-2" />
             烹飪時間：{recipe.cookingTime}
           </div>
           <div className="flex items-center">
-            <Users className="h-4 w-4 mr-2" />
+            <Users className="w-4 h-4 mr-2" />
             份量：{recipe.servings} 人份
           </div>
           <div className="flex items-center">
-            <ChefHat className="h-4 w-4 mr-2" />
+            <ChefHat className="w-4 h-4 mr-2" />
             難度：{recipe.difficulty}
           </div>
         </div>
@@ -186,7 +187,7 @@ const RecipeDetailPage = () => {
             {recipe.tags.map(tag => (
               <span
                 key={tag}
-                className="px-3 py-1 bg-primary-100 dark:bg-dark-accent text-primary-800 dark:text-dark-primary text-sm rounded-full"
+                className="px-3 py-1 text-sm rounded-full bg-primary-100 dark:bg-dark-accent text-primary-800 dark:text-dark-primary"
               >
                 {tag}
               </span>
@@ -195,18 +196,18 @@ const RecipeDetailPage = () => {
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* 食材列表 */}
         <div className="lg:col-span-1">
-          <div className="bg-white dark:bg-dark-card rounded-lg shadow-sm border border-gray-200 dark:border-dark-border p-6 sticky top-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-dark-foreground mb-4">
+          <div className="sticky p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-dark-card dark:border-dark-border top-6">
+            <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-dark-foreground">
               所需食材
             </h2>
             <ul className="space-y-3">
               {recipe.ingredients.map((ingredient, index) => (
-                <li key={index} className="flex justify-between items-center">
+                <li key={index} className="flex items-center justify-between">
                   <span className="text-gray-900 dark:text-dark-foreground">{ingredient.name}</span>
-                  <span className="text-gray-600 dark:text-dark-muted-foreground text-sm">
+                  <span className="text-sm text-gray-600 dark:text-dark-muted-foreground">
                     {ingredient.amount} {ingredient.unit}
                   </span>
                 </li>
@@ -217,7 +218,7 @@ const RecipeDetailPage = () => {
 
         {/* 烹飪步驟 */}
         <div className="lg:col-span-2">
-          <div className="bg-white dark:bg-dark-card rounded-lg shadow-sm border border-gray-200 dark:border-dark-border p-6">
+          <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-dark-card dark:border-dark-border">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-dark-foreground">
                 烹飪步驟
@@ -229,9 +230,9 @@ const RecipeDetailPage = () => {
 
             {/* 進度條 */}
             <div className="mb-6">
-              <div className="w-full bg-gray-200 dark:bg-dark-input rounded-full h-2">
+              <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-dark-input">
                 <div
-                  className="bg-primary-600 dark:bg-dark-primary h-2 rounded-full transition-all duration-300"
+                  className="h-2 transition-all duration-300 rounded-full bg-primary-600 dark:bg-dark-primary"
                   style={{ width: `${progress}%` }}
                 ></div>
               </div>
@@ -250,12 +251,12 @@ const RecipeDetailPage = () => {
                 >
                   <button
                     onClick={() => toggleStepComplete(index)}
-                    className="flex-shrink-0 mt-1 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-dark-accent transition-colors"
+                    className="flex-shrink-0 p-1 mt-1 transition-colors rounded-full hover:bg-gray-200 dark:hover:bg-dark-accent"
                   >
                     {checkedSteps.has(index) ? (
-                      <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" />
+                      <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400" />
                     ) : (
-                      <Circle className="h-5 w-5 text-gray-400 dark:text-dark-muted-foreground hover:text-gray-600 dark:hover:text-dark-foreground" />
+                      <Circle className="w-5 h-5 text-gray-400 dark:text-dark-muted-foreground hover:text-gray-600 dark:hover:text-dark-foreground" />
                     )}
                   </button>
                   
@@ -280,36 +281,49 @@ const RecipeDetailPage = () => {
 
       {/* 額外資訊 */}
       {(recipe.nutritionTips || recipe.variations || recipe.funnyComment) && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        <div className="grid grid-cols-1 gap-6 mt-6 lg:grid-cols-2">
           {recipe.nutritionTips && (
-            <div className="bg-white dark:bg-dark-card rounded-lg shadow-sm border border-gray-200 dark:border-dark-border p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-dark-foreground mb-3">
+            <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-dark-card dark:border-dark-border">
+              <h3 className="mb-3 text-lg font-semibold text-gray-900 dark:text-dark-foreground">
                 營養建議
               </h3>
-              <p className="text-gray-700 dark:text-dark-muted-foreground leading-relaxed">
+              <p className="leading-relaxed text-gray-700 dark:text-dark-muted-foreground">
                 {recipe.nutritionTips}
               </p>
             </div>
           )}
 
           {recipe.variations && (
-            <div className="bg-white dark:bg-dark-card rounded-lg shadow-sm border border-gray-200 dark:border-dark-border p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-dark-foreground mb-3">
+            <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-dark-card dark:border-dark-border">
+              <h3 className="mb-3 text-lg font-semibold text-gray-900 dark:text-dark-foreground">
                 變化建議
               </h3>
-              <p className="text-gray-700 dark:text-dark-muted-foreground leading-relaxed">
+              <p className="leading-relaxed text-gray-700 dark:text-dark-muted-foreground">
                 {recipe.variations}
               </p>
             </div>
           )}
 
           {recipe.funnyComment && (
-            <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg shadow-sm border border-yellow-200 dark:border-yellow-700 p-6 lg:col-span-2">
-              <h3 className="text-lg font-semibold text-yellow-900 dark:text-yellow-300 mb-3 flex items-center">
-                😄 廚師幽默時間
+            <div className="p-6 border border-yellow-200 rounded-lg shadow-sm bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-700 lg:col-span-2">
+              <h3 className="flex items-center mb-3 text-lg font-semibold text-yellow-900 dark:text-yellow-300">
+                😄 廚師評論
+                {recipe.rating && (
+                  <span className="flex items-center ml-3">
+                    {[...Array(10)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-5 w-5 ${
+                          i < recipe.rating ? 'text-yellow-500' : 'text-gray-300 dark:text-gray-600'
+                        }`}
+                        fill={i < recipe.rating ? 'currentColor' : 'none'}
+                      />
+                    ))}
+                  </span>
+                )}
               </h3>
-              <p className="text-yellow-800 dark:text-yellow-200 leading-relaxed italic">
-                {recipe.funnyComment ? recipe.funnyComment : "這道菜如果連你都搞砸了，那你就是個驢子！現在，動起來！"}
+              <p className="italic leading-relaxed text-yellow-800 dark:text-yellow-200">
+                {recipe.funnyComment}
               </p>
             </div>
           )}
@@ -318,24 +332,24 @@ const RecipeDetailPage = () => {
 
       {/* 刪除確認彈窗 */}
       {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-dark-card rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-dark-foreground mb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-full max-w-md p-6 mx-4 bg-white rounded-lg dark:bg-dark-card">
+            <h3 className="mb-4 text-lg font-medium text-gray-900 dark:text-dark-foreground">
               確認刪除食譜
             </h3>
-            <p className="text-gray-600 dark:text-dark-muted-foreground mb-6">
+            <p className="mb-6 text-gray-600 dark:text-dark-muted-foreground">
               您確定要刪除「{recipe.title}」嗎？此操作無法復原。
             </p>
             <div className="flex justify-end space-x-3">
               <button
                 onClick={() => setShowDeleteConfirm(false)}
-                className="px-4 py-2 rounded-md border border-gray-300 dark:border-dark-border text-gray-700 dark:text-dark-foreground hover:bg-gray-100 dark:hover:bg-dark-accent transition-colors shadow-sm"
+                className="px-4 py-2 text-gray-700 transition-colors border border-gray-300 rounded-md shadow-sm dark:border-dark-border dark:text-dark-foreground hover:bg-gray-100 dark:hover:bg-dark-accent"
               >
                 取消
               </button>
               <button
                 onClick={handleDeleteRecipe}
-                className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 transition-colors shadow-sm"
+                className="px-4 py-2 text-white transition-colors bg-red-600 rounded-md shadow-sm hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600"
               >
                 刪除
               </button>
